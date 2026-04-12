@@ -1,0 +1,12 @@
+{
+  "name": "Ime",
+  "surname": "Prezime",
+  "address": {
+    "street": "Darta Vejdera",
+    "number": "66",
+    "city": {
+      "name": "Bosilegrad",
+      "postal_code": "17540"
+    }
+  }
+}
