@@ -11,16 +11,18 @@ const argsConfig = {
 } as const;
 
 const scriptArgs = parseArgs(argsConfig);
+const sourceLang = scriptArgs.values['source-file'];
+const saveAsFile = scriptArgs.values['save-as'];
 
 const exportToExcel = (data: Buffer<ArrayBuffer>) => {
   const translationData = JSON.parse(data.toString());
 
   const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet('User Data');
+  const worksheet = workbook.addWorksheet('translation');
 
   worksheet.columns = [
-    { header: 'Property', key: 'prop', width: 40 },
-    { header: 'Value', key: 'val', width: 60 },
+    { header: 'propertyPath', key: 'prop', width: 40 },
+    { header: sourceLang, key: 'val', width: 60 },
   ];
 
   const traverseTranslationEntries = (
@@ -45,11 +47,11 @@ const exportToExcel = (data: Buffer<ArrayBuffer>) => {
   );
 
   worksheet.getRow(1).font = { bold: true };
-  const saveName = `${scriptArgs.values['save-as']}.xlsx`;
+  const saveName = `${saveAsFile}.xlsx`;
   workbook.xlsx.writeFile(saveName);
 };
 
-const exportFrom = `${scriptArgs.values['source-file']}.json`;
+const exportFrom = `${sourceLang}.json`;
 const dataPath = new URL(exportFrom, import.meta.url);
 
 readFile(dataPath)
