@@ -1,12 +1,13 @@
 {
   "name": "Ime",
-  "surname": "Prezime",
+  "surname": "Prezime <i>ffff</i>",
   "address": {
-    "street": "Darta Vejdera",
+    "street": "Darta <strong>Vej<br>dera</strong> Crnog",
     "number": "66",
     "city": {
-      "name": "Bosilegrad",
-      "postal_code": "17540"
+      "name": "Bosilegrad<br>Donje selo",
+      "postal_code": "17540",
+      "neki_deo": "obican tekst <b>obvo je bold</b><br><em>ovo je italik</em><br><strong><i>ovo je oba</i></strong>"
     }
   }
 }

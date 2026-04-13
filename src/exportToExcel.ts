@@ -2,6 +2,7 @@ import { readFile } from 'fs/promises';
 import { parseArgs } from 'node:util';
 import ExcelJS from 'exceljs';
 import type { TranslationData } from './types/TranslationData.types.ts';
+import { htmlToRichText } from './utils/htmlToRichText.ts';
 
 const argsConfig = {
   options: {
@@ -30,7 +31,10 @@ const exportToExcel = (data: Buffer<ArrayBuffer>) => {
     value: string | TranslationData
   ) => {
     if (typeof value === 'string')
-      return worksheet.addRow({ prop: key, val: value });
+      return worksheet.addRow({
+        prop: key,
+        val: { richText: htmlToRichText(value) },
+      });
     if (typeof value === 'object') {
       Object.entries(value).map(([nestedKey, nestedValue]) =>
         traverseTranslationEntries(`${key}.${nestedKey}`, nestedValue)
