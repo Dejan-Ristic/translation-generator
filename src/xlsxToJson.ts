@@ -7,7 +7,7 @@ const translationError = (errorMsg = '') => {
 };
 
 const importFromExcel = (langCode: string) => {
-  const worksheet = workbook.getWorksheet('translation');
+  const worksheet = workbook.getWorksheet('arthrys-translations');
   if (!worksheet) return;
 
   const translatedObj: TranslationData = {};
