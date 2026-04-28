@@ -1,13 +1,16 @@
 import ExcelJS from 'exceljs';
 import { writeFileSync } from 'fs';
-import type { TranslationData } from './types/TranslationData.types.ts';
+import {
+  TranslationConstants,
+  type TranslationData,
+} from './types/TranslationData.types.ts';
 
 const translationError = (errorMsg = '') => {
   throw new Error(errorMsg || 'Translation not formatted');
 };
 
 const importFromExcel = (langCode: string) => {
-  const worksheet = workbook.getWorksheet('arthrys-translations');
+  const worksheet = workbook.getWorksheet(TranslationConstants.WORKBOOK_NAME);
   if (!worksheet) return;
 
   const translatedObj: TranslationData = {};
@@ -45,7 +48,7 @@ const importFromExcel = (langCode: string) => {
   });
 
   const jsonOutput = JSON.stringify(translatedObj, null, 2);
-  writeFileSync(`${langCode}.json`, jsonOutput);
+  writeFileSync(`src/translations/${langCode}.json`, jsonOutput);
 };
 
 const workbook = new ExcelJS.Workbook();
@@ -55,6 +58,6 @@ const translatedlang = 'en';
 
 // TODO: ovo kasnije da se dinamicki uzme iz args
 workbook.xlsx
-  .readFile('./Translation-test.xlsx')
+  .readFile('src/translations/Translation-test.xlsx')
   .then(() => importFromExcel(translatedlang))
   .catch((error) => console.error('\x1b[31m%s\x1b[0m', error));
