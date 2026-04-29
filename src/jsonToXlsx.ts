@@ -1,8 +1,10 @@
 import { readFile } from 'fs/promises';
 import { parseArgs } from 'node:util';
 import ExcelJS from 'exceljs';
-import type { TranslationData } from './types/TranslationData.types.ts';
-import { htmlToRichText } from './utils/htmlToRichText.ts';
+import {
+  TranslationConstants,
+  type TranslationData,
+} from './types/TranslationData.types.ts';
 
 const exportError = (errorMsg = '') => {
   throw new Error(errorMsg || 'Translation export error');
@@ -12,7 +14,10 @@ const argsConfig = {
   options: {
     'source-file': { type: 'string' },
     'save-as': { type: 'string' },
-    'parse-as': { type: 'string' as const, choices: ['text', 'html'] as const },
+    'parse-as': {
+      type: 'string' as const,
+      choices: ['text', 'richText'] as const,
+    },
     'wb-name': { type: 'string' },
   },
 } as const;
@@ -20,8 +25,10 @@ const argsConfig = {
 const scriptArgs = parseArgs(argsConfig);
 const sourceFile =
   scriptArgs.values['source-file'] ?? exportError('no source .json file');
-const saveAsFile = scriptArgs.values['save-as'] ?? 'translation';
-const workbookName = scriptArgs.values['wb-name'] ?? 'translation';
+const saveAsFile =
+  scriptArgs.values['save-as'] ?? TranslationConstants.XLSX_FILE;
+const workbookName =
+  scriptArgs.values['wb-name'] ?? TranslationConstants.WORKBOOK_NAME;
 const parseAs = scriptArgs.values['parse-as'] ?? 'text';
 
 const jsonToXlsx = (data: Buffer<ArrayBuffer>) => {
@@ -31,26 +38,33 @@ const jsonToXlsx = (data: Buffer<ArrayBuffer>) => {
   const worksheet = workbook.addWorksheet(workbookName);
 
   worksheet.columns = [
-    { header: 'propertyPath', key: 'prop', width: 40 },
-    { header: sourceFile.split('/').pop(), key: 'val', width: 60 },
+    { header: 'propertyPath', key: 'prop', width: 60 },
+    { header: sourceFile.split('/').pop(), key: 'val', width: 200 },
   ];
 
   const traverseTranslationEntries = (
     key: string,
-    value: string | TranslationData
+    value: string | Array<string | TranslationData> | TranslationData
   ) => {
     if (typeof value === 'string') {
-      let content: unknown = '';
-      if (parseAs === 'text') content = value;
-      if (parseAs === 'html') content = { richText: htmlToRichText(value) };
-      if (content)
+      if (!value) return exportError('no translation content');
+      if (parseAs === 'text')
         return worksheet.addRow({
           prop: key,
-          val: content,
+          val: value,
         });
-      else exportError('no translation content');
-    }
-    if (typeof value === 'object') {
+      else exportError();
+    } else if (Array.isArray(value)) {
+      if (value[0] === TranslationConstants.ARTHRYS_CONTENT) {
+        return worksheet.addRow({
+          prop: key,
+          val: { richText: value.slice(1) },
+        });
+      } else
+        value.forEach((element, index) => {
+          traverseTranslationEntries(`${key}.${index}`, element);
+        });
+    } else if (typeof value === 'object') {
       Object.entries(value).map(([nestedKey, nestedValue]) =>
         traverseTranslationEntries(`${key}.${nestedKey}`, nestedValue)
       );
@@ -58,7 +72,7 @@ const jsonToXlsx = (data: Buffer<ArrayBuffer>) => {
   };
 
   const translationEntries = Object.entries(translationData) as Array<
-    [string, string | TranslationData]
+    [string, string | Array<TranslationData> | TranslationData]
   >;
 
   translationEntries.forEach(([key, value]) =>
