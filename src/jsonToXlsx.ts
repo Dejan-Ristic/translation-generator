@@ -5,6 +5,7 @@ import {
   TranslationConstants,
   type TranslationData,
 } from './types/TranslationData.types.ts';
+import { checkIfRichTextContent } from './utils/utils.ts';
 
 const exportError = (errorMsg = '') => {
   throw new Error(errorMsg || 'Translation export error');
@@ -16,7 +17,7 @@ const argsConfig = {
     'save-as': { type: 'string' },
     'parse-as': {
       type: 'string' as const,
-      choices: ['text', 'richText'] as const,
+      choices: ['text', 'richtext'] as const,
     },
     'wb-name': { type: 'string' },
   },
@@ -55,6 +56,7 @@ const jsonToXlsx = (data: Buffer<ArrayBuffer>) => {
         });
       else exportError();
     } else if (Array.isArray(value)) {
+      checkIfRichTextContent(value);
       if (value[0] === TranslationConstants.ARTHRYS_CONTENT) {
         return worksheet.addRow({
           prop: key,

@@ -1,0 +1,578 @@
+{
+  "home_view": {
+    "main_image": {
+      "title": [
+        "arthrys_content",
+        {
+          "text": "Kretanje znači\n"
+        },
+        {
+          "font": {
+            "bold": true
+          },
+          "text": "slobodu"
+        }
+      ]
+    },
+    "intro_info": [
+      {
+        "title": [
+          "arthrys_content",
+          {
+            "text": "PREVAZIĐITE POVREDE"
+          }
+        ],
+        "text": [
+          "arthrys_content",
+          {
+            "text": "Pratite svoje porodične, poslovne i fitnes ciljeve bez prestanka. "
+          },
+          {
+            "font": {
+              "bold": true
+            },
+            "text": "ARTHRYS"
+          },
+          {
+            "text": " pruža ciljanu podršku za brži oporavak i smanjuje rizik od ponovnih povreda."
+          }
+        ]
+      },
+      {
+        "title": [
+          "arthrys_content",
+          {
+            "text": "OSTANITE MLADI I JAKI"
+          }
+        ],
+        "text": [
+          "arthrys_content",
+          {
+            "text": "Suočite se sa izazovima starenja i održite mladalačku vitalnost. "
+          },
+          {
+            "font": {
+              "bold": true
+            },
+            "text": "ARTHRYS"
+          },
+          {
+            "text": " pomaže u usporavanju znakova starenja i poboljšava opšte blagostanje."
+          }
+        ]
+      },
+      {
+        "title": [
+          "arthrys_content",
+          {
+            "text": "POVRATITE ZDRAVLJE ZGLOBOVA"
+          }
+        ],
+        "text": [
+          "arthrys_content",
+          {
+            "text": "Ublažite bolove u zglobovima i povratite slobodu kretanja. Povratite kretanje bez ograničenja i vratite se svojim redovnim i omiljenim aktivnostima."
+          }
+        ]
+      }
+    ],
+    "diagnosis": {
+      "title": [
+        "arthrys_content",
+        {
+          "text": "Dijagnoze"
+        }
+      ],
+      "table": {
+        "header": {
+          "location": [
+            "arthrys_content",
+            {
+              "text": "LOKACIJA"
+            }
+          ],
+          "diagnosis": [
+            "arthrys_content",
+            {
+              "text": "DIJAGNOZA"
+            }
+          ]
+        },
+        "items": [
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "VRATNI PREDEO"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Cervikalgija uzrokovana degenerativnim bolestima hrskavice"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Cervikalgija uzrokovana triger tačkama u vratnim mišićima"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Cervikalgija uzrokovana mišićnom hipertonijom"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Whiplash injury (hiperfleksija/hiperekstenzija)"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Cervikalgija usled nepravilnog držanja vrata"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Mehanička neravnoteža - povreda međupršljenskih zglobova (fasetni sindr.)"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Sindrom cervikalnih spinalnih ligamenata"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u korenu vratnog dela kičmenog stuba"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Sindrom ukočenog vrata"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "RAME"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Poliartritis ramena i mišice"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Sindrom rotatorne manžetne"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Sindrom rame-mišica"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Smrznuto rame"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u ramenu uzrokovan dislokacijom (pre i posle repozicije)"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "LAKAT"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Epikondylitis lateralis - tzv.teniski lakat, epicondylitis lateralis humeri"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Epikondylitis medialis - tzv. golferski lakat, epicondylitis medialis humer De Kervenov sindrom (stenozirajući tenosinovitis)"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "RUKA"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Artritis prstiju ruke"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Rizartroza palca (Forestierova bolest)"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Sindrom karpalnog tunela"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "De Kervenov sindrom"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Reumatoidni artritis ruke"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Tenditis ruke usled duge imobilizacije"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "GRUDNI PREDEO"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u grudnom delu uzrokovan deg. bolestima hrskavice u torakalnom delu"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u grudnom delu uzrokovan skoliozom"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u grudnom delu uzrokovan triger tačkama dugih mišića leđa"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol uzrokovan osteofitozom grudnog dela kičmenog stuba"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u grudnom delu uzrokovan osteoporozom grudnog dela kičmenog stuba"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Mehanička neravnoteža (kostovertebralni fasetni sindrom)"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Sindrom spinalnih ligamenata u grudnom delu"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u korenu grudnog dela kičmenog stuba"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "SLABINSKI PREDEO"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Sekundarni lumbago uzrokovan degenerativnim bolestima hrskavice u lumbalnom delu kičmenog stuba (lumbalna i lumbo-sakralna artroza"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Osteofitoza lumbalnog dela kičmenog stuba"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Sekundarni lumbago uzrokovan muskulotendinoznim triger tačkama"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Lumbago uzrokovan nepravilnim držanjem tela"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Lumbalni i lumbosakralni mehanički disbalans"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Sakroilijačni sindrom (ARTHRYS-22, ARTHRYS-52)"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u korenu lumbalnog i lumbosakralnog dela"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "KUK"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Osteoartroza zgloba kuka - koksartroza"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Upala burze zgloba kuka"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Osteoartroza zgloba kuka sa reumatoidnim artritisom"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u zglobu kuka - koksalgija mišićnog porekla"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u zglobu kuka - koksalgija nervnog porekla (upaljen kuk)"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u zglobu kuka - koksalgija uzrokovana dugoročnom imobilizacijom"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "PUT V. SEDALNOG ŽIVCA"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Išijalgija"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Lumboišijalgija"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Lumbalna neuralgija"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Uporna postoperativna išijalgija nakon operacije diskus hernije L4-L5, L5-S1"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Mortonov neurom (metatarzalgija)"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "KOLENO"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Osteoartroza zgloba kolena"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Lezija meniskusa"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Bol u kolenu kao posledica reumatoidnog artritisa ili drugih autoimunih bolesti"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Posttraumatski akutni i hronični artrosinovitis kolena, osteoartritis ili reumatoidni artritis"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Artrosinovitis, akutni i hronični posttraumatski ili postoperativni artrosinovitis"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Traumatske lezije ukrštenih ili kolateralnih ligamenata kolena"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Priprema kolena za meniscektomiju"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Potporna terapija nakon hirurških intervencija u predelu kolena"
+                }
+              ]
+            ]
+          },
+          {
+            "subheader": [
+              "arthrys_content",
+              {
+                "text": "ČLANAK"
+              }
+            ],
+            "issues": [
+              [
+                "arthrys_content",
+                {
+                  "text": "Artritisni bol kao posledica čekićastih prstiju"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Matatarzalgija"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Matatarzalgija praćena Mortonovim neuromom"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Reumatoidni artritis u predelu nogu"
+                }
+              ],
+              [
+                "arthrys_content",
+                {
+                  "text": "Tendinopatija noge usled duge imobilizacije"
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      "column_button": [
+        "arthrys_content",
+        {
+          "text": "Zatvori"
+        }
+      ]
+    }
+  }
+}
