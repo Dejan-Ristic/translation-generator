@@ -5,7 +5,7 @@ import {
   TranslationConstants,
   type TranslationData,
 } from './types/TranslationData.types.ts';
-import { checkIfRichTextContent } from './utils/utils.ts';
+import { checkIfRichTextContent, parseAsText } from './utils/utils.ts';
 
 const exportError = (errorMsg = '') => {
   throw new Error(errorMsg || 'Translation export error');
@@ -30,7 +30,7 @@ const saveAsFile =
   scriptArgs.values['save-as'] ?? TranslationConstants.XLSX_FILE;
 const workbookName =
   scriptArgs.values['wb-name'] ?? TranslationConstants.WORKBOOK_NAME;
-const parseAs = scriptArgs.values['parse-as'] ?? 'text';
+const parseAs = scriptArgs.values['parse-as'] ?? TranslationConstants.TEXT;
 
 const jsonToXlsx = (data: Buffer<ArrayBuffer>) => {
   const translationData = JSON.parse(data.toString());
@@ -49,18 +49,19 @@ const jsonToXlsx = (data: Buffer<ArrayBuffer>) => {
   ) => {
     if (typeof value === 'string') {
       if (!value) return exportError('no translation content');
-      if (parseAs === 'text')
-        return worksheet.addRow({
-          prop: key,
-          val: value,
-        });
-      else exportError();
+      return worksheet.addRow({
+        prop: key,
+        val: value,
+      });
     } else if (Array.isArray(value)) {
-      checkIfRichTextContent(value);
-      if (value[0] === TranslationConstants.ARTHRYS_CONTENT) {
+      if (checkIfRichTextContent(value)) {
+        let content;
+        if (parseAs === TranslationConstants.TEXT) content = parseAsText(value);
+        if (parseAs === TranslationConstants.RICHTEXT)
+          content = { richText: value };
         return worksheet.addRow({
           prop: key,
-          val: { richText: value.slice(1) },
+          val: content,
         });
       } else
         value.forEach((element, index) => {

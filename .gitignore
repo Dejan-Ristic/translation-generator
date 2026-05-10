@@ -1,6 +1,8 @@
 .vscode
+.history
 node_modules
 list.txt
 *.xlsx
 dist
 build
+translations

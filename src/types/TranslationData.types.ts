@@ -1,7 +1,8 @@
 export const TranslationConstants = {
-  ARTHRYS_CONTENT: 'arthrys_content',
   WORKBOOK_NAME: 'arthrys_translations',
   XLSX_FILE: 'translations',
+  TEXT: 'text',
+  RICHTEXT: 'richtext',
 };
 
 export type TranslationData = {
