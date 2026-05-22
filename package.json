@@ -1,11 +1,8 @@
 {
   "name": "translation-generator",
   "version": "1.0.0",
-  "description": "",
   "license": "ISC",
-  "author": "",
   "type": "module",
-  "main": "index.js",
   "scripts": {
     "dev-json-xlsx": "nodemon --exec ts-node src/jsonToXlsx.ts",
     "dev-xlsx-json": "nodemon --exec ts-node src/xlsxToJson.ts",

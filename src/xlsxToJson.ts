@@ -1,17 +1,14 @@
 import ExcelJS from 'exceljs';
 import { writeFileSync } from 'fs';
-import {
-  TranslationConstants,
-  type TranslationData,
-} from './types/TranslationData.types.ts';
-import console from 'console';
+import { RichTextPartial, type TranslationData } from './types';
+import { ERROR_MESSAGES, TRANSLATION_PARAMS } from './constants';
 
-const translationError = (errorMsg = '') => {
-  throw new Error(errorMsg || 'Translation not formatted');
+const xlsxToJsonError = (errorMsg = '') => {
+  throw new Error(errorMsg || ERROR_MESSAGES.XLSX_TO_JSON_ERROR_DEFAULT);
 };
 
 const importFromExcel = (langCode: string) => {
-  const worksheet = workbook.getWorksheet(TranslationConstants.WORKBOOK_NAME);
+  const worksheet = workbook.getWorksheet(TRANSLATION_PARAMS.WORKBOOK_NAME);
   if (!worksheet) return;
 
   const translatedObj: TranslationData = {};
@@ -25,19 +22,22 @@ const importFromExcel = (langCode: string) => {
 
     if (rowNumber === firstRowIndex) {
       row.eachCell({ includeEmpty: false }, (cell, colNumber) => {
-        if (cell.value === 'propertyPath') propertyPathNumber = colNumber;
+        if (cell.value === TRANSLATION_PARAMS.COLUMN_PROPERTY)
+          propertyPathNumber = colNumber;
         if (cell.value === langCode) translatedlangNumber = colNumber;
       });
-      if (!propertyPathNumber || !translatedlangNumber) translationError();
+      if (!propertyPathNumber || !translatedlangNumber) xlsxToJsonError();
     } else {
       const transProp = row.getCell(propertyPathNumber).value;
-      const transVal = row.getCell(translatedlangNumber).value;
+      const transVal = row.getCell(translatedlangNumber).value as
+        | string
+        | RichTextPartial;
 
-      if (!transProp || !transVal) translationError();
+      if (!transProp || !transVal) xlsxToJsonError();
 
       if (typeof transProp === 'string') {
         const nestedProps = transProp.split('.');
-        let current = translatedObj;
+        let current: TranslationData = translatedObj;
 
         nestedProps.forEach((key, index) => {
           if (!current[key]) {
@@ -55,9 +55,9 @@ const importFromExcel = (langCode: string) => {
                     },
                   ]);
                 else return (current[key] = transVal);
-              } else
+              } else if (transVal.richText && Array.isArray(transVal.richText))
                 return (current[key] = transVal.richText.map((textEl) => {
-                  const filteredText = {};
+                  const filteredText: RichTextPartial = {};
                   if (textEl.font.bold || textEl.font.italic)
                     filteredText.font = {
                       bold: textEl?.font?.bold,
@@ -69,29 +69,37 @@ const importFromExcel = (langCode: string) => {
             }
             current[key] = {};
           }
-          current = current[key];
+          current = current[key] as TranslationData;
         });
       }
     }
   });
 
-  const checkArrayFields = (transArr) => {
+  const checkArrayFields = (
+    transArr: Array<string | TranslationData | RichTextPartial>
+  ) => {
     transArr.forEach((arrEl) => {
-      if (typeof arrEl === 'object') checkObjectFields(arrEl);
+      if (typeof arrEl === 'object')
+        checkObjectFields(arrEl as TranslationData);
     });
   };
 
-  const checkObjectFields = (transObj) => {
+  const checkObjectFields = (transObj: TranslationData) => {
     Object.entries(transObj).forEach(([key, val]) => {
       if (typeof val === 'object' && !Array.isArray(val)) {
         const objectKeys = Object.keys(val);
         if (objectKeys.every((objSubkey) => !Number.isNaN(Number(objSubkey)))) {
           const orderedKeys = objectKeys.sort((a, b) => Number(a) - Number(b));
-          const dataArray = [];
-          orderedKeys.forEach((orderedKey) => dataArray.push(val[orderedKey]));
+          const dataArray: Array<string | TranslationData | RichTextPartial> =
+            [];
+          orderedKeys.forEach((orderedKey) =>
+            dataArray.push(
+              val[orderedKey] as string | TranslationData | RichTextPartial
+            )
+          );
           transObj[key] = dataArray;
           checkArrayFields(transObj[key]);
-        } else checkObjectFields(transObj[key]);
+        } else checkObjectFields(transObj[key] as TranslationData);
       }
     });
   };
@@ -109,6 +117,9 @@ const translatedlang = 'ba';
 
 // TODO: ovo kasnije da se dinamicki uzme iz args
 workbook.xlsx
-  .readFile(`translations/${TranslationConstants.XLSX_FILE}.xlsx`)
+  .readFile(`translations/${TRANSLATION_PARAMS.XLSX_FILE}.xlsx`)
   .then(() => importFromExcel(translatedlang))
-  .catch((error) => console.error('\x1b[31m%s\x1b[0m', error));
+  .catch((error) => {
+    console.error('\x1b[31m%s\x1b[0m', error);
+    xlsxToJsonError(ERROR_MESSAGES.XLSX_TO_JSON_ERROR_READ_FILE);
+  });
