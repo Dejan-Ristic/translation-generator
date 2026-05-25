@@ -40,6 +40,7 @@ const parseAs = [
   ? scriptParams.values['parse-as']
   : TRANSLATION_PARAMS.CONTENT_TEXT;
 
+// if an array member is an object traverse it as Object
 const checkArrayFields = (
   transArr: Array<string | TranslationData | RichTextPartial>
 ) => {
@@ -48,10 +49,14 @@ const checkArrayFields = (
   });
 };
 
+// any data that is (not array) object
 const checkObjectFields = (transObj: TranslationData) => {
   Object.entries(transObj).forEach(([key, val]) => {
     if (typeof val === 'object' && !Array.isArray(val)) {
       const objectKeys = Object.keys(val);
+      // check if keys of an object can be parsed as numbers
+      // if true - this is an object made from a previuously serialized array
+      // and is being converted to Array again and traversed as array
       if (objectKeys.every((objSubkey) => !Number.isNaN(Number(objSubkey)))) {
         const orderedKeys = objectKeys.sort((a, b) => Number(a) - Number(b));
         const dataArray: Array<string | TranslationData | RichTextPartial> = [];
@@ -62,27 +67,31 @@ const checkObjectFields = (transObj: TranslationData) => {
         );
         transObj[key] = dataArray;
         checkArrayFields(transObj[key]);
-      } else checkObjectFields(transObj[key] as TranslationData);
+      }
+      // if false - it is regular object and traversed as Object
+      else checkObjectFields(transObj[key] as TranslationData);
     }
   });
 };
 
 const importFromExcel = (langCode: string) => {
+  // get excel worksheet and init values
   const worksheet = workbook.getWorksheet(workbookName);
   if (!worksheet)
     return xlsxToJsonError(ERROR_MESSAGES.XLSX_TO_JSON_ERROR_WORKBOOK);
 
   const translatedObj: TranslationData = {};
-
   let propertyPathNumber = 0;
   let translatedlangNumber = 0;
   let firstRowIndex: null | number = null;
 
+  // traverse rows in the worksheet
   worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
     if (!firstRowIndex) firstRowIndex = rowNumber;
 
     if (rowNumber === firstRowIndex) {
       row.eachCell({ includeEmpty: false }, (cell, colNumber) => {
+        // set initial line numbers - where content starts
         if (cell.value === TRANSLATION_PARAMS.COLUMN_PROPERTY)
           propertyPathNumber = colNumber;
         if (cell.value === langCode) translatedlangNumber = colNumber;
@@ -102,12 +111,16 @@ const importFromExcel = (langCode: string) => {
         const nestedProps = transProp.split('.');
         let current: TranslationData = translatedObj;
 
+        // key in property column in broken into segments and iterated - every segment
+        // previously created from names of nested object properties or array indices
         nestedProps.forEach((key, index) => {
           if (!current[key]) {
             if (index === nestedProps.length - 1) {
               if (typeof transVal === 'string') {
+                // if entire field is formatted - font is checked in cell property 'font'
                 const textFormat = row.getCell(translatedlangNumber).font;
                 if (textFormat.bold || textFormat.italic) {
+                  // parses as rich text or plain text
                   if (parseAs === TRANSLATION_PARAMS.CONTENT_RICHTEXT)
                     return (current[key] = [
                       {
@@ -125,6 +138,7 @@ const importFromExcel = (langCode: string) => {
                 transVal.richText &&
                 Array.isArray(transVal.richText)
               ) {
+                // parses as rich text or plain text
                 if (parseAs === TRANSLATION_PARAMS.CONTENT_RICHTEXT) {
                   return (current[key] = transVal.richText.map((textEl) => {
                     const filteredText: RichTextPartial = {};
@@ -143,6 +157,7 @@ const importFromExcel = (langCode: string) => {
                 }
               }
             }
+            // if not last segment, the newly created object is focused (current) in next iteration
             current[key] = {};
           }
           current = current[key] as TranslationData;
@@ -151,6 +166,8 @@ const importFromExcel = (langCode: string) => {
     }
   });
 
+  // all data is save as deep nested objects
+  // object that have been created from arrays need to be reverted to arrays
   checkObjectFields(translatedObj);
 
   // saving parsed data to json file
