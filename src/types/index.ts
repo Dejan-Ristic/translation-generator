@@ -1,4 +1,4 @@
-import { RICHTEXT_FIELDS, RICHTEXT_FONT_FIELDS } from '../constants';
+import { RICHTEXT_FIELDS, RICHTEXT_FONT_FIELDS } from '../constants/index.ts';
 
 export interface RichTextPartial {
   [RICHTEXT_FIELDS.TEXT]: string;
